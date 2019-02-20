@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Main class 
  */
 package com.beginning.main;
 
@@ -9,21 +7,29 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
-/**
- *
- * @author Piotr
- */
 public class Game extends Canvas implements Runnable {
-
     private static final long serialVersionUID = 1550691097823471818L;
 
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
     private Thread thread;
     private boolean running = false;
-
+    private Handler handler;
+    private Random r;
+    
+    /**
+     * 
+     * Constructor
+     */
     public Game() {
         new Window(WIDTH, HEIGHT, "Lets build a game", this);
+        handler = new Handler();    //instance of Handler class
+        r=new Random();
+        for(int i = 0; i< 55; i++){
+            handler.addObject(new Player(0, 0, ID.Player));
+        }
+        
     }
 
     public synchronized void start() {
@@ -40,7 +46,10 @@ public class Game extends Canvas implements Runnable {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * Main game loop
+     */
     public void run() {
         long lastTime = System.nanoTime();    //get current time to the nanoseconds
         double amountOfTicks = 60.0;    //set the number of ticks
@@ -66,8 +75,8 @@ public class Game extends Canvas implements Runnable {
 
             }
             if (running) 
-            render();   //reder visual of game
-            frames++;   //already fame should passed
+            render();   //render visual of game
+            frames++;   //already frame should passed
             if (System.currentTimeMillis() - timer > 1000) {    //if one second has passed
                 timer += 1000;
                 System.out.println("FPS: " + frames);     //print how many frames have happend in the last second
@@ -78,7 +87,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-
+        handler.tick();
     }
 
     private void render() {
@@ -93,10 +102,17 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         
+        handler.render(g);
+        
         g.dispose();
         bs.show();
     }
-
+    
+    
+    /**
+     * 
+     * Main function 
+     */
     public static void main(String args[]) {
         new Game();
     }
