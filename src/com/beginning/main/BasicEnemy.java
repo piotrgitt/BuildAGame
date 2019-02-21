@@ -22,8 +22,8 @@ public class BasicEnemy extends GameObject {
         /**
          * if an Enemy hits our window wall, his velocity will reverse - he just bounce off
          */
-        if(x>Game.WIDTH - 32 || x<0) velX*=-1;      
-        if(y>Game.HEIGHT - 32 || y<0) velY*=-1;
+        if(x>Game.WIDTH - 16 || x<0) velX*=-1;      
+        if(y>Game.HEIGHT - 16 || y<0) velY*=-1;
     }
 
     @Override

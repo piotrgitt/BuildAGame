@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.beginning.main;
 
 import java.awt.Canvas;
@@ -10,32 +5,25 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 
-/**
- *
- * @author Piotr
- */
 public class Window extends Canvas {
     
     private static final long serialVerionUID = -24084060033728354L;
     
     /**
-     * windows constructor parameters
-     * @param width
-     * @param height
-     * @param title
-     * @param game 
+     * window constructor parameters
+     * 
      */
     public Window(int width, int height, String title, Game game){
         JFrame frame = new JFrame(title);
         
-        frame.setPreferredSize(new Dimension(width, height));
-        frame.setMaximumSize(new Dimension(width, height));
-        frame.setMinimumSize(new Dimension(width, height));
-        
+        game.setPreferredSize(new Dimension(width, height));
+        game.setMaximumSize(new Dimension(width, height));
+        game.setMinimumSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.add(game);
+        frame.pack();
         frame.setVisible(true);
         
         game.start();       //starting our game
