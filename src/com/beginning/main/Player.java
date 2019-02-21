@@ -9,9 +9,7 @@ public class Player extends GameObject {
     
     
     public Player(int x, int y, ID id){
-        super(x, y, id);
-        velX=random.nextInt(11)+1;
-        velY=random.nextInt(11)+1;
+       super(x, y, id);
     }
 
 
@@ -23,7 +21,13 @@ public class Player extends GameObject {
 
 
     public void render(Graphics g) {
-        g.setColor(Color.red);
+        if(id == ID.Player){
+            g.setColor(Color.red);
+        }
+        else if(id == ID.Player2){
+            g.setColor(Color.white);
+        }
+        
         g.fillRect(x, y, 32, 32);
         
     }

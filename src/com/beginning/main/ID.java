@@ -13,6 +13,7 @@ public enum ID {
      * Creates a numeration for player and enemy
      */
     Player(),
+    Player2(),
     Enemy();
        
 }

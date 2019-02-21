@@ -10,10 +10,10 @@ import java.util.Random;
 public abstract class  GameObject {
     
     protected int x, y;
-    protected ID id;
     protected int velX, velY; 
-    Random random = new Random();
     
+    Random random = new Random();       
+    protected ID id;    //instance of ID class
     
     /**
      * Constructor for objects basic parameters
@@ -48,15 +48,6 @@ public abstract class  GameObject {
 
     
     
-    public ID getId() {
-        return id;
-    }
-    public void setId(ID id) {
-        this.id = id;
-    }
-
-    
-    
     public int getVelX() {
         return velX;
     }
@@ -74,5 +65,16 @@ public abstract class  GameObject {
     }
     
     
+    
+    
+    /**
+     * Here Get and Set are for an object!
+     */
+    public ID getId() {
+        return id;
+    }
+    public void setId(ID id) {
+        this.id = id;
+    }
     
 }
