@@ -24,13 +24,13 @@ public class Game extends Canvas implements Runnable {
      */
     public Game() {
         handler = new Handler();
-        this.addKeyListener(new KeyInput());    //it listen all the time our keyboard
+        this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
         
         Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
         r=new Random();
 
-        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));
-        handler.addObject(new Player(WIDTH/4-32, HEIGHT/4-32, ID.Player2));     
+        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));  //WIDTH/2-32 - oznacza środek ekranu
+        handler.addObject(new Player(WIDTH/2+62, HEIGHT/2-32, ID.Player2));     
 
         
     }
