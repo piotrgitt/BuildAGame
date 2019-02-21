@@ -15,8 +15,8 @@ public class Game extends Canvas implements Runnable {
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
     private Thread thread;
     private boolean running = false;
-    private Handler handler;
-    private Random r;
+    private final Handler handler;
+    private final Random r;
     
     /**
      * 
@@ -77,8 +77,7 @@ public class Game extends Canvas implements Runnable {
                 delta--;   //lower deltat back to 0 to start our next frame
 
             }
-            if (running) 
-            render();   //render visual of game
+            if (running) render();  //render visual of game    
             frames++;   //already frame should passed
             if (System.currentTimeMillis() - timer > 1000) {    //if one second has passed
                 timer += 1000;
@@ -111,6 +110,22 @@ public class Game extends Canvas implements Runnable {
         bs.show();
     }
     
+    /**
+     * 
+     * Clamp for player, so he cannot go trough our frame window, wall
+     * @param var
+     * @param min
+     * @param max
+     * @return 
+     */
+    public static int clamp(int var, int min, int max){
+        if(var >= max)
+            return max;
+        if(var <= min)
+            return min;
+        else 
+            return var;
+    }
     
     /**
      * 
