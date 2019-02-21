@@ -13,21 +13,22 @@ public class Player extends GameObject {
     }
 
 
+    @Override
     public void tick() {
+        
         x = x + velX;
         y = y + velY;
+        
         
     }
 
 
+    @Override
     public void render(Graphics g) {
         if(id == ID.Player){
-            g.setColor(Color.red);
+            g.setColor(Color.green);
         }
-        else if(id == ID.Player2){
-            g.setColor(Color.white);
-        }
-        
+ 
         g.fillRect(x, y, 32, 32);
         
     }

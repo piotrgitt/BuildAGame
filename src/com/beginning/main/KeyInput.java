@@ -37,20 +37,7 @@ public class KeyInput extends KeyAdapter {
                     tempObject.setVelX(-3);
                 }
             }
-            if(tempObject.getId()==ID.Player2){
-                if(key == KeyEvent.VK_W){
-                    tempObject.setVelY(-3);
-                }
-                if(key == KeyEvent.VK_S){
-                    tempObject.setVelY(3);
-                }
-                if(key == KeyEvent.VK_D){
-                    tempObject.setVelX(3);
-                }
-                if(key == KeyEvent.VK_A){
-                    tempObject.setVelX(-3);
-                }
-            }
+            
         }
     }
     
@@ -77,20 +64,7 @@ public class KeyInput extends KeyAdapter {
                     tempObject.setVelX(0);
                 }
             }
-            if(tempObject.getId()==ID.Player2){
-                if(key == KeyEvent.VK_W){
-                    tempObject.setVelY(0);
-                }
-                if(key == KeyEvent.VK_S){
-                    tempObject.setVelY(0);
-                }
-                if(key == KeyEvent.VK_D){
-                    tempObject.setVelX(0);
-                }
-                if(key == KeyEvent.VK_A){
-                    tempObject.setVelX(0);
-                }
-            }
+            
         }
     }
 }

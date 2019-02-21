@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1550691097823471818L;
-
+    
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
     private Thread thread;
     private boolean running = false;
@@ -28,10 +28,9 @@ public class Game extends Canvas implements Runnable {
         
         Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
         r=new Random();
-
-        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));  //WIDTH/2-32 - oznacza środek ekranu
-        handler.addObject(new Player(WIDTH/2+62, HEIGHT/2-32, ID.Player2));     
-
+        
+        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));  //"WIDTH/2-32" - oznacza środek ekranu    
+        handler.addObject(new BasicEnemy(WIDTH/2-32, HEIGHT/2-90, ID.BasicEnemy));
         
     }
 
@@ -52,6 +51,7 @@ public class Game extends Canvas implements Runnable {
     
     /**
      * Main game loop
+     * Uses two methods: tick(), render()
      */
     public void run() {
         long lastTime = System.nanoTime();    //get current time to the nanoseconds
@@ -102,8 +102,8 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.setColor(Color.black);    //set background color to Black
+        g.fillRect(0, 0, WIDTH, HEIGHT);   
         
         handler.render(g);
         
