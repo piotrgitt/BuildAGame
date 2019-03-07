@@ -16,22 +16,30 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
     private final Handler handler;
-    private final Random r;
-    
+    private final Random r=new Random();
+    private HUD hud;
     /**
      * 
      * Constructor
      */
     public Game() {
+        
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
         
         Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
-        r=new Random();
+        hud = new HUD();
         
-        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));  //"WIDTH/2-32" - oznacza środek ekranu    
-        handler.addObject(new BasicEnemy(WIDTH/2-32, HEIGHT/2-90, ID.BasicEnemy));
+        /**
+         * 
+         * Adding objects into the game. All objects are added to LinkedList
+         */
+        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));  //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
         
+        handler.addObject(new BasicEnemy(WIDTH/2-32, HEIGHT/2-90, ID.BasicEnemy));   
+        for(int i=0;i<10;i++){
+            handler.addObject(new BasicEnemy(r.nextInt(WIDTH),r.nextInt(HEIGHT),ID.BasicEnemy));
+        }
     }
 
     public synchronized void start() {
@@ -54,6 +62,7 @@ public class Game extends Canvas implements Runnable {
      * Uses two methods: tick(), render()
      */
     public void run() {
+        this.requestFocus();//
         long lastTime = System.nanoTime();    //get current time to the nanoseconds
         double amountOfTicks = 60.0;    //set the number of ticks
         double ns = 1000000000 / amountOfTicks;    // determines how many times we can divide 60 into 10^9 nano seconds or about 1 second
@@ -90,6 +99,7 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
+        hud.tick();
     }
 
     private void render() {
@@ -105,6 +115,7 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, WIDTH, HEIGHT);   
         
         handler.render(g);
+        hud.render(g);
         
         g.dispose();
         bs.show();
@@ -113,10 +124,7 @@ public class Game extends Canvas implements Runnable {
     /**
      * 
      * Clamp for player, so he cannot go trough our frame window, wall
-     * @param var
-     * @param min
-     * @param max
-     * @return 
+     * Clamp is using to restrict a value to a given range
      */
     public static int clamp(int var, int min, int max){
         if(var >= max)
@@ -129,7 +137,7 @@ public class Game extends Canvas implements Runnable {
     
     /**
      * 
-     * Main function 
+     * Starts the program
      */
     public static void main(String args[]) {
         new Game();

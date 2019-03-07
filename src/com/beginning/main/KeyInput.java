@@ -5,8 +5,8 @@ import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
     private Handler handler;
-    public GameObject tempObject;
-    public int tempVel;
+    public GameObject tempObject;//just an teporary object
+    public int tempVel;//just an tempoary variable
     //Constructor
     public KeyInput(Handler handler){
         this.handler = handler;
