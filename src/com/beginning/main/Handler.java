@@ -10,15 +10,15 @@ import java.util.LinkedList;
 
 
 public class Handler {
-    LinkedList<GameObject> object = new LinkedList<GameObject>();
+    LinkedList<GameObject> objects = new LinkedList<GameObject>();
     
     /**
      * looping trough all game objects
      * 
      */
     public void tick(){
-        for(int i=0; i < object.size(); i++){
-            GameObject tempObject = object.get(i);  //get 
+        for(int i=0; i < objects.size(); i++){
+            GameObject tempObject = objects.get(i);  //get 
             /**
              * running a method tick coming from
              * GameObject(ex. tick() method from player object)
@@ -29,22 +29,21 @@ public class Handler {
     
     /**
      * looping trough all game objects
-     * 
      */
     public void render(Graphics g){
-        for(int i=0; i<object.size(); i++){
-            GameObject tempObject = object.get(i);
+        for(int i=0; i<objects.size(); i++){
+            GameObject tempObject = objects.get(i);
             
             tempObject.render(g);
         }
     }
     
     public void addObject(GameObject object){
-        this.object.add(object);
+        this.objects.add(object);
     }
     
     public void removeObject(GameObject object){
-        this.object.remove(object);
+        this.objects.remove(object);
     }
     
     

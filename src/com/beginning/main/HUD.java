@@ -11,7 +11,7 @@ import java.awt.Graphics;
 public class HUD {
     
     //number of player's health
-    public static int HEALTH = 33;
+    public static int HEALTH = 100;
     
     public void tick(){
         

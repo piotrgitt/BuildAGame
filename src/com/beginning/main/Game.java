@@ -30,16 +30,11 @@ public class Game extends Canvas implements Runnable {
         Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
         hud = new HUD();
         
-        /**
-         * 
-         * Adding objects into the game. All objects are added to LinkedList
-         */
-        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));  //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
         
+         
+        //Adding objects into the game. All objects are added to LinkedList
+        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler));  //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
         handler.addObject(new BasicEnemy(WIDTH/2-32, HEIGHT/2-90, ID.BasicEnemy));   
-        for(int i=0;i<10;i++){
-            handler.addObject(new BasicEnemy(r.nextInt(WIDTH),r.nextInt(HEIGHT),ID.BasicEnemy));
-        }
     }
 
     public synchronized void start() {
@@ -142,4 +137,18 @@ public class Game extends Canvas implements Runnable {
     public static void main(String args[]) {
         new Game();
     }
+    
+     /**
+     * 
+     * TIPS:
+     * 
+     * Tipp: Add handler to the constructor of GameObject, and have it do
+     * this.handler=handler;
+     * handler.addObject(this); 
+     * That way you don't have to add every object to the handler yourself 
+     * with "handler.addObject(New Player(x,y,etc))", instead you can just
+     * use "new Player(x,y,etc)" and it will automatically add itself to the handler.﻿
+     */
+    
+   
 }

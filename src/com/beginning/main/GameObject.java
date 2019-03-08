@@ -5,30 +5,44 @@
 package com.beginning.main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public abstract class  GameObject {
     
+    Random random = new Random();       
+    protected ID id;       
+    
     protected int x, y;
     protected int velX, velY; 
     
-    Random random = new Random();       
-    protected ID id;    //instance of ID class
     
-    /**
-     * Constructor for objects basic parameters
-     */
+
+    
+    //Constuctor
     public GameObject(int x, int y, ID id){
         this.x = x;
         this.y = y;
         this.id = id;
     }
     
+    
+    
     /**
-     * Abstract method - only for using by inherent classes(like player)
+     * Abstract methods - only for using by inherent classes(like player)
      */
     public abstract void tick();
     public abstract void render(Graphics g);
+    //using renctangle to handle all the collisions
+    //Its Java library Class
+    //Return TRUE or FALSE
+    public abstract Rectangle getBounds();
+    
+    
+    
+    
+    
+    
 
     public int getX() {
         return x;

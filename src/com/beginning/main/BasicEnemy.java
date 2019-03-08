@@ -5,6 +5,7 @@ package com.beginning.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
 public class BasicEnemy extends GameObject {
@@ -33,4 +34,10 @@ public class BasicEnemy extends GameObject {
         g.setColor(Color.red);  //set color of render object
         g.fillRect(x, y, 16, 16);  //fill renctangle - Dimenstion of him is 16x16px
     }
+
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, 16, 16);  //16 x 16 is dimensions of our rectangle
+    }
+  
 }
