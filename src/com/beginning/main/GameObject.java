@@ -35,14 +35,13 @@ public abstract class  GameObject {
     public abstract void render(Graphics g);
     //using renctangle to handle all the collisions
     //Its Java library Class
-    //Return TRUE or FALSE
     public abstract Rectangle getBounds();
     
     
     
     
     
-    
+        
 
     public int getX() {
         return x;
