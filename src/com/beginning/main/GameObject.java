@@ -35,6 +35,7 @@ public abstract class  GameObject {
     public abstract void render(Graphics g);
     //using renctangle to handle all the collisions
     //Its Java library Class
+    //getBounds() - used for colission borrder of GameObjects
     public abstract Rectangle getBounds();
     
     
@@ -42,10 +43,11 @@ public abstract class  GameObject {
     
     
         
-
+    
     public int getX() {
         return x;
     }
+    
     public void setX(int x) {
         this.x = x;
     }
@@ -78,11 +80,6 @@ public abstract class  GameObject {
     }
     
     
-    
-    
-    /**
-     * Here Get and Set are for an object!
-     */
     public ID getId() {
         return id;
     }
