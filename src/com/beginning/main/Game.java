@@ -10,31 +10,34 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
+
     private static final long serialVersionUID = 1550691097823471818L;
-    
+
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
     private Thread thread;
     private boolean running = false;
     private final Handler handler;
-    private final Random r=new Random();
+    private final Random r = new Random();
     private HUD hud;
+    private Spawn spawner;
+
     /**
-     * 
+     *
      * Constructor
      */
     public Game() {
-        
+
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
-        
+
         Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
         hud = new HUD();
-        
-        
-         
+        spawner = new Spawn(handler, hud);
+
         //Adding objects into the game. All objects are added to LinkedList
-        handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler));  //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
-        handler.addObject(new BasicEnemy(WIDTH/2-32, HEIGHT/2-90, ID.BasicEnemy, handler));   
+        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));  //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
+        handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
+
     }
 
     public synchronized void start() {
@@ -51,10 +54,9 @@ public class Game extends Canvas implements Runnable {
             e.printStackTrace();
         }
     }
-    
+
     /**
-     * Main game loop
-     * Uses two methods: tick(), render()
+     * Main game loop Uses two methods: tick(), render()
      */
     public void run() {
         this.requestFocus();//
@@ -81,7 +83,9 @@ public class Game extends Canvas implements Runnable {
                 delta--;   //lower deltat back to 0 to start our next frame
 
             }
-            if (running) render();  //render visual of game    
+            if (running) {
+                render();  //render visual of game    
+            }
             frames++;   //already frame should passed
             if (System.currentTimeMillis() - timer > 1000) {    //if one second has passed
                 timer += 1000;
@@ -95,6 +99,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         handler.tick();
         hud.tick();
+        spawner.tick();
     }
 
     private void render() {
@@ -107,48 +112,47 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
         g.setColor(Color.black);    //set background color to Black
-        g.fillRect(0, 0, WIDTH, HEIGHT);   
-        
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+
         handler.render(g);
         hud.render(g);
-        
+
         g.dispose();
         bs.show();
     }
-    
+
     /**
-     * 
-     * Clamp for player, so he cannot go trough our frame window, wall
-     * Clamp is using to restrict a value to a given range
+     *
+     * Clamp for player, so he cannot go trough our frame window,
      */
-    public static int clamp(int var, int min, int max){
-        if(var >= max)
+    public static int clamp(int var, int min, int max) {
+        if (var >= max) {
             return max;
-        if(var <= min)
+        }
+        if (var <= min) {
             return min;
-        else 
+        } else {
             return var;
+        }
     }
-    
+
     /**
-     * 
+     *
      * Starts the program
      */
     public static void main(String args[]) {
         new Game();
     }
-    
-     /**
-     * 
-     * TIPS:
-     * 
-     * Tipp: Add handler to the constructor of GameObject, and have it do
-     * this.handler=handler;
-     * handler.addObject(this); 
-     * That way you don't have to add every object to the handler yourself 
-     * with "handler.addObject(New Player(x,y,etc))", instead you can just
-     * use "new Player(x,y,etc)" and it will automatically add itself to the handler.﻿
+
+    /**
+     *
+     * TIP:
+     *
+     * Tip: Add handler to the constructor of GameObject, and have it do
+     * this.handler=handler; handler.addObject(this); That way you don't have to
+     * add every object to the handler yourself with 
+     * "handler.addObject(New Player(x,y,etc))",
+     * instead you can just use "new Player(x,y,etc)" and it
+     * will automatically add itself to the handler.﻿
      */
-    
-   
 }
