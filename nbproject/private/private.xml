@@ -4,9 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/BasicEnemy.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/Trail.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/Game.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/KeyInput.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/ID.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/SmartEnemy.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/Spawn.java</file>
         </group>
     </open-files>
 </project-private>
