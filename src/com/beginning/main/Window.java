@@ -13,12 +13,12 @@ public class Window extends Canvas {
      * window constructor parameters
      * 
      */
-    public Window(int width, int height, String title, Game game){
+    public Window(float width, float height, String title, Game game){
         JFrame frame = new JFrame(title);
         
-        game.setPreferredSize(new Dimension(width, height));
-        game.setMaximumSize(new Dimension(width, height));
-        game.setMinimumSize(new Dimension(width, height));
+        game.setPreferredSize(new Dimension((int)width, (int)height));
+        game.setMaximumSize(new Dimension((int)width, (int)height));
+        game.setMinimumSize(new Dimension((int)width, (int)height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);

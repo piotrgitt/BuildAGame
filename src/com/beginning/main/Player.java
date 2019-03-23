@@ -9,7 +9,7 @@ public class Player extends GameObject {
 
     public Handler handler;
 
-    public Player(int x, int y, ID id, Handler handler) {
+    public Player(float x, float y, ID id, Handler handler) {
         super(x, y, id);
         this.handler = handler;
     }
@@ -35,7 +35,7 @@ public class Player extends GameObject {
         
         //Player Render
         g.setColor(Color.blue);   //set color of render object
-        g.fillRect(x, y, 32, 32);  //fill renctangle - Dimension of him is 16x16px
+        g.fillRect((int)x, (int)y, 32, 32);  //fill renctangle - Dimension of him is 16x16px
 
         //Collision border of player
         //g.setColor(Color.red);
@@ -44,7 +44,7 @@ public class Player extends GameObject {
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 32, 32);
+        return new Rectangle((int)x, (int)y, 32, 32);
     }
 
     public void colission() {
@@ -52,10 +52,10 @@ public class Player extends GameObject {
         for (int i = 0; i < handler.objects.size(); i++) {
             tempObject = handler.objects.get(i);
             //Loop is iterating for all objects in game. When an object is BasicEnemy colission code is turning on
-            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy) {
+            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     //collision code - what happens when we collide with ANY another object
-                    HUD.HEALTH -= 4;
+                    HUD.HEALTH -= 4.0f;
                 }
             }
         }

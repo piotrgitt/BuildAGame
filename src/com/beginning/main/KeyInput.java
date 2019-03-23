@@ -8,7 +8,7 @@ public class KeyInput extends KeyAdapter {
     
     private Handler handler;
     public GameObject tempObject;//just an teporary object
-    public int tempVel;//just an tempoary variable
+    public float tempVel;//just an tempoary variable
     //Constructor
     public KeyInput(Handler handler){
         this.handler = handler;

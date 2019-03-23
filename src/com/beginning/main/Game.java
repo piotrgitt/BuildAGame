@@ -13,20 +13,22 @@ public class Game extends Canvas implements Runnable {
 
     private static final long serialVersionUID = 1550691097823471818L;
 
-    public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+    public static final float WIDTH = 640.0f, HEIGHT = WIDTH / 12 * 9;
     private Thread thread;
     private boolean running = false;
     private final Handler handler;
     private final Random r = new Random();
     private HUD hud;
     private Spawn spawner;
+    int averageFPS, sum, iterator = 0;
+   
 
     /**
      *
      * Constructor
      */
     public Game() {
-
+        
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
 
@@ -36,8 +38,6 @@ public class Game extends Canvas implements Runnable {
 
         //Adding objects into the game. All objects are added to LinkedList
         handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));  //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
-        handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
-
     }
 
     public synchronized void start() {
@@ -87,9 +87,17 @@ public class Game extends Canvas implements Runnable {
                 render();  //render visual of game    
             }
             frames++;   //already frame should passed
+
             if (System.currentTimeMillis() - timer > 1000) {    //if one second has passed
                 timer += 1000;
                 System.out.println("FPS: " + frames);     //print how many frames have happend in the last second
+                /** Average FPS of last 10 second
+                if(iterator==30) {sum = 0; iterator = 0;}
+                iterator++;
+                sum += frames;
+                averageFPS=sum/iterator;
+                System.out.println("Average FPS: " + averageFPS);
+                */
                 frames = 0;   //reset the came count for the next second    
             }
         }
@@ -112,7 +120,7 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
         g.setColor(Color.black);    //set background color to Black
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, (int)WIDTH, (int)HEIGHT);
 
         handler.render(g);
         hud.render(g);
@@ -125,7 +133,7 @@ public class Game extends Canvas implements Runnable {
      *
      * Clamp for player, so he cannot go trough our frame window,
      */
-    public static int clamp(int var, int min, int max) {
+    public static float clamp(float var, float min, float max) {
         if (var >= max) {
             return max;
         }
