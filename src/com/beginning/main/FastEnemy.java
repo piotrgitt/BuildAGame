@@ -11,7 +11,7 @@ public class FastEnemy extends GameObject {
 
     private Handler handler;
 
-    public FastEnemy(int x, int y, ID id, Handler handler) {
+    public FastEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
 
         this.handler = handler;
@@ -37,18 +37,18 @@ public class FastEnemy extends GameObject {
             velY *= -1;
         }
 
-        handler.addObject(new Trail(x, y, Color.ORANGE, 16, 16, 0.025f, ID.Trail, handler));
+        handler.addObject(new Trail(x, y, Color.ORANGE, 16.0f, 16.0f, 0.025f, ID.Trail, handler));
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.ORANGE);  //set color of render object
-        g.fillRect(x, y, 16, 16);  //fill renctangle - Dimenstion of him is 16x16px
+        g.fillRect((int)x, (int)y, 16, 16);  //fill renctangle - Dimenstion of him is 16x16px
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 16, 16);  //16 x 16 is dimensions of our rectangle
+        return new Rectangle((int)x, (int)y, 16, 16);  //16 x 16 is dimensions of our rectangle
     }
 
 }
