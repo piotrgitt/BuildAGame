@@ -1,6 +1,3 @@
-/*
- * Class inhereted of GameObject Class
- */
 package com.beginning.main;
 
 import java.awt.Color;
@@ -8,18 +5,18 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class BasicEnemy extends GameObject {
+public class BossBullet extends GameObject {
 
     private Handler handler;
-    private Random random;
+    private final Random randomNumber = new Random();
 
-    public BasicEnemy(float x, float y, ID id, Handler handler) {
+    public BossBullet(float x, float y, ID id, Handler handler) {
         super(x, y, id);
 
         this.handler = handler;
 
-        velX = 5.0f;
-        velY = 5.0f;
+        velX = (randomNumber.nextFloat())*10 -5;
+        velY = 4.0f;
 
     }
 
@@ -32,15 +29,17 @@ public class BasicEnemy extends GameObject {
          * if an Enemy hits our window wall, his velocity will reverse - he just
          * bounce off(multiplying by -1)
          */
-        if (x > Game.WIDTH - 16 || x < 0) {
-            velX *= -1;
-        }
-        if (y > Game.HEIGHT - 16 || y < 0) {
-            velY *= -1;    
-        }
+//        if (x > Game.WIDTH - 16 || x < 0) {
+//            handler.removeObject(this);
+//        }
+//        if (y > Game.HEIGHT - 16 || y < 0) {
+//            handler.removeObject(this);
+//        }
 
-        handler.addObject(new Trail(x, y, Color.red, 16.0f, 16.0f, 0.025f, ID.Trail, handler));
-        
+          if(x > Game.WIDTH) handler.removeObject(this);
+          if(y > Game.HEIGHT) handler.removeObject(this);
+
+        handler.addObject(new Trail(x, y, Color.red, 16, 16, 0.025f, ID.Trail, handler));
     }
 
     @Override

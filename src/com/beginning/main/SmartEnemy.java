@@ -62,14 +62,16 @@ public class SmartEnemy extends GameObject {
             velY = 0.00001f;
         }
         
+        /*
         System.out.println("VEL X: "+velX);
         System.out.println("VEL Y: "+velY);
         System.out.println("x: "+x);
         System.out.println("y: "+y);
+        */
         
         //distX * Z, gdzie Z określa szybkość poruszania się (0 - nie porrusza się, 5 - w chuj szybko)
-        velX = (float) ((-1.0f/distance) * distX);
         velY = (float) ((-1.0f/distance) * distY);
+        velX = (float) ((-1.0f/distance) * distX);
         
         //Glitch fix (better to do own Exception)
         if(Float.isNaN(velX)){

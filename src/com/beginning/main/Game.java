@@ -37,7 +37,9 @@ public class Game extends Canvas implements Runnable {
         spawner = new Spawn(handler, hud);
 
         //Adding objects into the game. All objects are added to LinkedList
-        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));  //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
+        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
+        handler.addObject(new BasicEnemy((r.nextFloat()*(WIDTH-16)), (r.nextFloat()*(HEIGHT-16)) , ID.BasicEnemy, handler));                 
+
     }
 
     public synchronized void start() {

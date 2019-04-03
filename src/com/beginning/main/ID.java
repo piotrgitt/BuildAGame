@@ -8,13 +8,12 @@ package com.beginning.main;
  * @author Piotr
  */
 public enum ID {
-    /**
-     * Creates a numeration for player and enemy
-     */
     Player(),
     BasicEnemy(),
     FastEnemy(),
     SmartEnemy(),
+    BossEnemy(),
+    BossBullet(),
     Trail();
        
 }
