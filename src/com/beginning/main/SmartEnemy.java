@@ -1,6 +1,3 @@
-/*
- * Class inhereted of GameObject Class
- */
 package com.beginning.main;
 
 import java.awt.Color;
