@@ -19,16 +19,13 @@ public class Handler {
     public void tick(){
         for(int i=0; i < objects.size(); i++){
             GameObject tempObject = objects.get(i);  //get 
-            /**
-             * running a method tick coming from
-             * GameObject(ex. tick() method from player object)
-             */
+            
             tempObject.tick(); 
         }
     }
     
     /**
-     * looping trough all game objects
+     * looping trough all game objects and render them
      */
     public void render(Graphics g){
         for(int i=0; i<objects.size(); i++){
@@ -44,6 +41,16 @@ public class Handler {
     
     public void removeObject(GameObject object){
         this.objects.remove(object);
+    }
+    
+    public void removeAllEnemies(){
+        for(int i=objects.size()-1; i>0; i--){
+            GameObject tempObject = objects.get(i);
+            if(tempObject.id == ID.BasicEnemy || tempObject.id == ID.FastEnemy || tempObject.id == ID.SmartEnemy) {
+                
+                objects.remove(i);
+            }
+        }
     }
     
     
