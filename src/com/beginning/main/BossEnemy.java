@@ -55,6 +55,7 @@ public class BossEnemy extends GameObject {
         
         //SPAWN BULLET SECTION --------------------
         if(readyToFire == true){
+            velX += 0.01f*Math.signum(velX);
             spawn = random.nextInt(chanceToFireBullet);
             if(spawn == 0){
                 handler.addObject(new BossBullet(x+40, y+40, ID.BossBullet, handler));

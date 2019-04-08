@@ -22,6 +22,7 @@ public class Trail extends GameObject {
         this.life = life;
         this.handler = handler;
         
+        
     }
 
     @Override
