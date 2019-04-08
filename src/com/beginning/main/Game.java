@@ -20,8 +20,16 @@ public class Game extends Canvas implements Runnable {
     private final Random r = new Random();
     private HUD hud;
     private Spawn spawner;
-    int averageFPS, sum, iterator = 0;
-   
+    //int averageFPS, sum, iterator = 0;
+    
+//    public enum GameState {
+//        Menu,
+//        Help,
+//        Game;
+//    };
+    public GameState gameState = GameState.Menu;
+    public Menu menu;
+    
 
     /**
      *
@@ -30,11 +38,15 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         
         handler = new Handler();
+        menu = new Menu(this, handler);
         this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
-
+        this.addMouseListener(menu);
+        
         Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
+        menu = new Menu(this, handler);
         hud = new HUD();
         spawner = new Spawn(handler, hud);
+        
 
         //Adding objects into the game. All objects are added to LinkedList
         handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
@@ -108,8 +120,13 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
-        hud.tick();
-        spawner.tick();
+        if(gameState == GameState.Game){
+            hud.tick();
+            spawner.tick();
+        } else if(gameState == GameState.Menu || gameState == GameState.Help ){
+            menu.tick();
+        }
+
     }
 
     private void render() {
@@ -121,12 +138,21 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
 
+        
         g.setColor(Color.black);    //set background color to Black
         g.fillRect(0, 0, (int)WIDTH, (int)HEIGHT);
-
-        handler.render(g);
-        hud.render(g);
-
+        
+        
+        if(gameState == GameState.Game){
+            handler.render(g);
+            hud.render(g);
+        }else if(gameState == GameState.Menu || gameState == GameState.Help ){
+            menu.render(g);
+        }
+        
+        
+        
+        
         g.dispose();
         bs.show();
     }
