@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/gameClasses/ID.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/gameClasses/Menu.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/gameClasses/Handler.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/gameClasses/Spawn.java</file>
-            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/gameClasses/Game.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/Menu.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/ID.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/Handler.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/AudioPlayer.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/Game.java</file>
+            <file>file:/C:/Users/Piotr/Documents/NetBeansProjects/Build%20a%20Game/src/com/beginning/main/Spawn.java</file>
         </group>
     </open-files>
 </project-private>

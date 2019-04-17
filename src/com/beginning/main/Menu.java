@@ -55,16 +55,20 @@ public class Menu extends MouseAdapter{
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
 
                 handler.addObject(new BasicEnemy((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.BasicEnemy, handler));               
+                AudioPlayer.getSound("click_sound").play();
             }
 
             //HELP BUTTON
             if(mouseOver(mouseX, mouseY, 170, 200, 300, 90)){ 
                 game.gameState = GameState.Help;
+                AudioPlayer.getSound("click_sound").play();
             }
 
             //QUIT BUTTON
             if(mouseOver(mouseX, mouseY, 170, 320, 300, 90)){
+                AudioPlayer.getSound("click_sound").play();
                 System.exit(0);
+                
             }
         }
         
@@ -74,6 +78,7 @@ public class Menu extends MouseAdapter{
         if(game.gameState == GameState.Help){
             if(mouseOver(mouseX, mouseY, 50, 380, 200, 60)){
                 game.gameState = GameState.Menu;
+                AudioPlayer.getSound("click_sound").play();
             }
         }
         
@@ -85,7 +90,7 @@ public class Menu extends MouseAdapter{
                 game.gameState = GameState.Game;
                 handler.removeMenuParticles();
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
-
+                AudioPlayer.getSound("click_sound").play();
                 handler.addObject(new BasicEnemy((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.BasicEnemy, handler));     
             }
         }

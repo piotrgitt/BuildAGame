@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     private final Handler handler;
     private final Random r = new Random();
+
     private HUD hud;
     private Spawn spawner;
     //int averageFPS, sum, iterator = 0;
@@ -45,6 +46,9 @@ public class Game extends Canvas implements Runnable {
         menu = new Menu(this, handler, hud);
         this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
         this.addMouseListener(menu);
+        AudioPlayer.load();
+        //AudioPlayer.getMusic("music").loop();
+        AudioPlayer.getMusic("music").loop();
         
         Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
         // menu = new Menu(this, handler);
