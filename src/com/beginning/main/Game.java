@@ -20,8 +20,19 @@ public class Game extends Canvas implements Runnable {
     private final Random r = new Random();
     private HUD hud;
     private Spawn spawner;
-    int averageFPS, sum, iterator = 0;
-   
+    //int averageFPS, sum, iterator = 0;
+    
+//    public enum GameState {
+//        Menu,
+//        Help,
+//        Game;
+//    };
+    /**
+     * @link 
+     */
+    public GameState gameState = GameState.Menu;
+    public Menu menu;
+    
 
     /**
      *
@@ -30,16 +41,17 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         
         handler = new Handler();
-        this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
-
-        Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
         hud = new HUD();
+        menu = new Menu(this, handler, hud);
+        this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
+        this.addMouseListener(menu);
+        
+        Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
+        // menu = new Menu(this, handler);
+        
         spawner = new Spawn(handler, hud);
-
-        //Adding objects into the game. All objects are added to LinkedList
-        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
-        handler.addObject(new BasicEnemy((r.nextFloat()*(WIDTH-16)), (r.nextFloat()*(HEIGHT-16)) , ID.BasicEnemy, handler));                 
-
+        
+        //Player added in "PLAY BUTTON" from Menu class
     }
 
     public synchronized void start() {
@@ -107,9 +119,24 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-        handler.tick();
-        hud.tick();
-        spawner.tick();
+    handler.tick();    
+        if(gameState == GameState.Game){
+            hud.tick();
+            spawner.tick();
+            
+            if(HUD.HEALTH <= 0){
+                HUD.HEALTH = 100.0f;
+                handler.removeAllEnemies();
+                handler.removePlayer();
+                gameState = GameState.End;
+                
+                
+                
+            }
+        } else if(gameState == GameState.Menu || gameState == GameState.Help || gameState == GameState.End){
+            menu.tick();
+        }
+
     }
 
     private void render() {
@@ -118,15 +145,21 @@ public class Game extends Canvas implements Runnable {
             this.createBufferStrategy(3);   //explanation in older films RealTutsGML
             return;
         }
-
         Graphics g = bs.getDrawGraphics();
-
         g.setColor(Color.black);    //set background color to Black
         g.fillRect(0, 0, (int)WIDTH, (int)HEIGHT);
-
+        
         handler.render(g);
-        hud.render(g);
-
+        
+        if(gameState == GameState.Game){
+            hud.render(g);
+        }else if(gameState == GameState.Menu || gameState == GameState.Help || gameState == GameState.End ){
+            menu.render(g);
+        }
+        
+        
+        
+        
         g.dispose();
         bs.show();
     }

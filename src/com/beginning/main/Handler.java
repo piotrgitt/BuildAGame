@@ -6,6 +6,7 @@
 package com.beginning.main;
 
 import java.awt.Graphics;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -44,11 +45,31 @@ public class Handler {
     }
     
     public void removeAllEnemies(){
-        for(int i=objects.size()-1; i>0; i--){
-            GameObject tempObject = objects.get(i);
-            if(tempObject.id == ID.BasicEnemy || tempObject.id == ID.FastEnemy || tempObject.id == ID.SmartEnemy) {
-                
-                objects.remove(i);
+        Iterator it = objects.iterator();
+        while(it.hasNext()){
+            GameObject tempObject = (GameObject) it.next();
+            if(tempObject.id == ID.BasicEnemy || tempObject.id == ID.FastEnemy || tempObject.id == ID.SmartEnemy || tempObject.id == ID.MenuParticle){
+                it.remove();
+            }
+        }
+    }
+    
+    public void removeMenuParticles(){
+        Iterator it = objects.iterator();
+        while(it.hasNext()){
+            GameObject tempObject = (GameObject) it.next();
+            if(tempObject.id == ID.MenuParticle){
+                it.remove();
+            }
+        }
+    }
+    
+    public void removePlayer(){
+        Iterator it = objects.iterator();
+        while(it.hasNext()){
+            GameObject tempObject = (GameObject) it.next();
+            if(tempObject.id == ID.Player){
+                it.remove();
             }
         }
     }

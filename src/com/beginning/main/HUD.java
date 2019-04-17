@@ -15,7 +15,11 @@ public class HUD {
     private float greenValue;
     private int score = 0;
     private int level = 1;
-
+    
+    
+    /**
+     * tick for HUD
+     */
     public void tick() {
 
         HEALTH = Game.clamp(HEALTH, 0.0f, 100.0f);    // 0 and 100  - maximum and minimum health value
@@ -24,7 +28,11 @@ public class HUD {
         greenValue = HEALTH * 2;
         score++;
     }
-
+    
+    /**
+     * render hud method
+     * @param g (Graphic object)
+     */
     public void render(Graphics g) {
         g.setColor(Color.gray);
         g.fillRect(15, 15, 200, 32);
