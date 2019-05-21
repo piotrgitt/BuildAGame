@@ -6,12 +6,19 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter {
     private boolean[] keyDown = new boolean[4];
     
+    public Game game;
     private Handler handler;
     public GameObject tempObject;//just an teporary object
     public float tempVel;//just an tempoary variable
-    //Constructor
-    public KeyInput(Handler handler){
+    
+    /**
+     * Konstruktor
+     * @param handler
+     * @param game 
+     */
+    public KeyInput(Handler handler, Game game){
         this.handler = handler;
+        this.game = game;
         
         keyDown[0] = false; // UP - key
         keyDown[1] = false; // DOWN - key
@@ -20,7 +27,9 @@ public class KeyInput extends KeyAdapter {
     }
     
     
-    //Methods
+    /**
+     * @param e 
+     */
     public void keyPressed(KeyEvent e){
         int key = e.getKeyCode();
         
@@ -39,10 +48,19 @@ public class KeyInput extends KeyAdapter {
             
         }
        // if(key == KeyEvent.VK_ESCAPE) System.exit(1);
-            
+        if (key == KeyEvent.VK_P) {
+            if(game.gameState == GameState.Game){
+                if(!Game.paused) Game.paused = true;
+                else Game.paused = false;
+            }
+        }   
         
     }
     
+    /**
+     * 
+     * @param e 
+     */
     public void keyReleased(KeyEvent e){
         int key = e.getKeyCode();
             

@@ -13,5 +13,6 @@ public enum GameState {
         Menu,
         Help,   
         Game,
+        Select,
         End;
 };

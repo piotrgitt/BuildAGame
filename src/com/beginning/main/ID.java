@@ -10,6 +10,7 @@ package com.beginning.main;
 public enum ID {
     Player(),
     BasicEnemy(),
+    HardEnemy(),
     FastEnemy(),
     SmartEnemy(),
     BossEnemy(),

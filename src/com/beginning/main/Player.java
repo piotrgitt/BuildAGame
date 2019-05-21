@@ -51,11 +51,11 @@ public class Player extends GameObject {
         GameObject tempObject;
         for (int i = 0; i < handler.objects.size(); i++) {
             tempObject = handler.objects.get(i);
-            //Loop is iterating for all objects in game. When an object is BasicEnemy colission code is turning on
-            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy ||tempObject.getId() == ID.BossBullet) {
+            //Loop is iterating for all objects in game. When an object have an ID below(ex. BossBullet) colission code is turning on
+            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.BossBullet || tempObject.getId() == ID.HardEnemy ) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-                    //collision code - what happens when we collide with ANY another object
-                    HUD.HEALTH -= 4.0f;
+                    //collision code - what happens when intersect is going with object above(in big OR statement)
+                    HUD.HEALTH -= 1.0f;
                 }
             }
         }

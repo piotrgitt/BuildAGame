@@ -14,6 +14,7 @@ public class Menu extends MouseAdapter{
     private Game game;
     private Handler handler;
     private HUD hud;
+    private Spawn spawn;
     private int timer;
     private final Random r = new Random();
     MenuParticle menuParticles;
@@ -26,10 +27,12 @@ public class Menu extends MouseAdapter{
      * @param game
      * @param handler 
      */
-    public Menu(Game game, Handler handler, HUD hud){
+    public Menu(Game game, Handler handler, HUD hud, Spawn spawn){
         this.game = game;   
         this.handler = handler;
         this.hud = hud;
+        this.spawn = spawn;
+        AudioPlayer.load();
         for(int i=0; i<10 ; i++){
             handler.addObject(new MenuParticle((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.MenuParticle, handler));
         }
@@ -37,65 +40,118 @@ public class Menu extends MouseAdapter{
     
     /**
      * Method describes what happen after clicking LPM in specific area of program
+     * Method 
      * @param e
      */
-    @Override
     public void mousePressed(MouseEvent e){
         int mouseX = e.getX();
         int mouseY = e.getY();
         
         //=====    MENU
         if(game.gameState == GameState.Menu){
-            
             //PLAY BUTTON
-            //START THE GAME
             if(mouseOver(mouseX, mouseY, 170, 80, 300, 90)){
-                game.gameState = GameState.Game;
-                handler.removeMenuParticles();
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
-
-                handler.addObject(new BasicEnemy((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.BasicEnemy, handler));               
+                game.gameState = GameState.Select;
                 AudioPlayer.getSound("click_sound").play();
+                return;
             }
 
             //HELP BUTTON
             if(mouseOver(mouseX, mouseY, 170, 200, 300, 90)){ 
                 game.gameState = GameState.Help;
                 AudioPlayer.getSound("click_sound").play();
+                return;
             }
 
             //QUIT BUTTON
             if(mouseOver(mouseX, mouseY, 170, 320, 300, 90)){
                 AudioPlayer.getSound("click_sound").play();
-                System.exit(0);
-                
+                System.exit(0);      
             }
         }
         
         
-        //=====   HELP MENU or END SCREEN
-        //BACK BUTTON
+        
+        //==========  HELP MENU ========
         if(game.gameState == GameState.Help){
+            //BACK BUTTON
             if(mouseOver(mouseX, mouseY, 50, 380, 200, 60)){
                 game.gameState = GameState.Menu;
                 AudioPlayer.getSound("click_sound").play();
+                return;
             }
         }
         
-        //END BUTTON
+        
+        //========= END SCREEN =========
         if(game.gameState == GameState.End){
+            //PLAY AGAIN BUTTON
             if(mouseOver(mouseX, mouseY, 50, 380, 200, 60)){
                 hud.setScore(0);
+                spawn.setScoreKeep(0);
                 hud.setLevel(1);
                 game.gameState = GameState.Game;
                 handler.removeMenuParticles();
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
+                if(game.diff == 0){
+                    handler.addObject(new BasicEnemy((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.BasicEnemy, handler));
+                } else handler.addObject(new SmartEnemy((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.SmartEnemy, handler));
+                
+                AudioPlayer.getMusic("music").stop();
+                AudioPlayer.getMusic("in_game_music").loop(); 
                 AudioPlayer.getSound("click_sound").play();
-                handler.addObject(new BasicEnemy((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.BasicEnemy, handler));     
             }
+            
+            //MENU BUTTON
+            if(mouseOver(mouseX, mouseY, 220, 280, 200, 60)){
+                hud.setScore(0);
+                spawn.setScoreKeep(0);
+                hud.setLevel(1);
+                game.gameState = GameState.Menu;
+                AudioPlayer.getSound("click_sound").play();
+            }
+            
+            //QUIT BUTTON
+            if(mouseOver(mouseX, mouseY, 400, 380, 200, 60)){
+                System.exit(0);
+            }     
         }
         
-        
+        //========= SELECT DIFFICULTY ===========
+        if(game.gameState == GameState.Select){
+            //NORMAL BUTTON
+            if(mouseOver(mouseX, mouseY, 170, 80, 300, 90)){
+                game.diff = 0;
+                game.gameState = GameState.Game;
+                handler.removeMenuParticles();
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
+                handler.addObject(new BasicEnemy((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.BasicEnemy, handler));               
+                AudioPlayer.getMusic("music").stop();
+                AudioPlayer.getMusic("in_game_music").loop();
+                AudioPlayer.getSound("click_sound").play();
+                return;
+            }
+
+            //HARD BUTON
+            if(mouseOver(mouseX, mouseY, 170, 200, 300, 90)){ 
+                game.diff = 1;
+                game.gameState = GameState.Game;
+                handler.removeMenuParticles();
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));     //"WIDTH/2-32" - oznacza środek ekranu w rozdzielczości 640x480
+                handler.addObject(new SmartEnemy((r.nextFloat()*(Game.WIDTH-16)), (r.nextFloat()*(Game.HEIGHT-16)) , ID.SmartEnemy, handler));               
+                AudioPlayer.getMusic("music").stop();
+                AudioPlayer.getMusic("in_game_music").loop();
+                AudioPlayer.getSound("click_sound").play();
+                return;
+            }
+
+            //BACK BUTTON
+            if(mouseOver(mouseX, mouseY, 170, 320, 300, 90)){
+                game.gameState = GameState.Menu;
+                AudioPlayer.getSound("click_sound").play(); 
+            }
+        }
+
     }
     
     /**
@@ -171,16 +227,42 @@ public class Menu extends MouseAdapter{
             g.drawRoundRect(50, 380, 200, 60,10, 10);
             g.drawString("PLAY AGAIN", 76, 419);
             
-            //TEXTs
+            //MENU BUTTON
+            g.setFont(font2);
+            g.drawRoundRect(220, 280, 200, 60,10, 10);
+            g.drawString("MENU", 280, 318);
+            
+            //QUIT button
+            g.setFont(font2);
+            g.drawRoundRect(400, 380, 200, 60,10, 10);
+            g.drawString("QUIT", 474, 419);
+            
+            //YOU LOSE WITH SCORE text
             g.setFont(font3);
             g.drawString("You lose with score of: "+hud.getScore(), 50, 250);
         }
+        
+        //SELECT DIFFICULTY
+        if(game.gameState == GameState.Select){
+            Font font1 = new Font("arial", 11, 34);
+            g.setFont(font1);
+            
+            g.setColor(Color.WHITE);
+            g.drawString("Select difficulty", 200, 30);
+            g.drawRoundRect(170, 80, 300, 90,10, 10);
+            g.drawString("NORMAL", 270, 140);
+
+            g.drawRoundRect(170, 200, 300, 90,10, 10);
+            g.drawString("HARD", 270, 140+120);
+
+            g.drawRoundRect(170, 320, 300, 90,10, 10);
+            g.drawString("BACK", 270, 140+240); 
+        }
+        
     }
     
     
     public void tick(){
-
-        
     }
     
     

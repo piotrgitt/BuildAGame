@@ -21,12 +21,13 @@ public class AudioPlayer {
     public static Map<String, Music> musicMap = new HashMap<String,Music>();
     
     /**
-     * Load all sounds method
+     * Load all sounds into memory method
      */
     public static void load(){
         try {
             soundMap.put("click_sound", new Sound("C:\\Users\\Piotr\\Documents\\NetBeansProjects\\Build a Game\\Music\\click_sound.ogg"));
             musicMap.put("music", new Music("Music/background_music.ogg"));
+            musicMap.put("in_game_music", new Music("Music/in_game_music.ogg"));
         } catch (SlickException ex) {
             ex.printStackTrace();
         }

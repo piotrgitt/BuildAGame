@@ -48,7 +48,7 @@ public class Handler {
         Iterator it = objects.iterator();
         while(it.hasNext()){
             GameObject tempObject = (GameObject) it.next();
-            if(tempObject.id == ID.BasicEnemy || tempObject.id == ID.FastEnemy || tempObject.id == ID.SmartEnemy || tempObject.id == ID.MenuParticle){
+            if(tempObject.id == ID.BasicEnemy || tempObject.id == ID.FastEnemy || tempObject.id == ID.SmartEnemy || tempObject.id == ID.MenuParticle || tempObject.id == ID.BossEnemy || tempObject.id == ID.BossBullet || tempObject.id == ID.HardEnemy ){
                 it.remove();
             }
         }

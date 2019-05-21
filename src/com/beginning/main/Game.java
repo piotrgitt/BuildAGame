@@ -12,27 +12,29 @@ import java.util.Random;
 public class Game extends Canvas implements Runnable {
 
     private static final long serialVersionUID = 1550691097823471818L;
-
     public static final float WIDTH = 640.0f, HEIGHT = WIDTH / 12 * 9;
+    
     private Thread thread;
     private boolean running = false;
-    private final Handler handler;
+    public int diff = 0;
+    //diff = 0 -> NORMAL
+    //diff = 1 -> HARD
+    
+    public GameState gameState = GameState.Menu;
     private final Random r = new Random();
-
-    private HUD hud;
+    private final Handler handler;
     private Spawn spawner;
+    public Menu menu;
+    private HUD hud;
+    public static boolean paused = false;
+    
+    
     //int averageFPS, sum, iterator = 0;
     
-//    public enum GameState {
-//        Menu,
-//        Help,
-//        Game;
-//    };
     /**
      * @link 
      */
-    public GameState gameState = GameState.Menu;
-    public Menu menu;
+    
     
 
     /**
@@ -43,17 +45,17 @@ public class Game extends Canvas implements Runnable {
         
         handler = new Handler();
         hud = new HUD();
-        menu = new Menu(this, handler, hud);
-        this.addKeyListener(new KeyInput(handler));    //it listen all the time our keyboard
+        spawner = new Spawn(handler, hud, this);
+        menu = new Menu(this, handler, hud, spawner);
+        
+        this.addKeyListener(new KeyInput(handler, this));    //it listen all the time our keyboard
         this.addMouseListener(menu);
+        
         AudioPlayer.load();
-        //AudioPlayer.getMusic("music").loop();
         AudioPlayer.getMusic("music").loop();
         
         Window window = new Window(WIDTH, HEIGHT, "Lets build a game", this);
-        // menu = new Menu(this, handler);
         
-        spawner = new Spawn(handler, hud);
         
         //Player added in "PLAY BUTTON" from Menu class
     }
@@ -123,25 +125,34 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-    handler.tick();    
+        
         if(gameState == GameState.Game){
-            hud.tick();
-            spawner.tick();
-            
-            if(HUD.HEALTH <= 0){
-                HUD.HEALTH = 100.0f;
-                handler.removeAllEnemies();
-                handler.removePlayer();
-                gameState = GameState.End;
+            if(!paused){
+                handler.tick();
+                hud.tick();
+                spawner.tick();
                 
-                
-                
-            }
-        } else if(gameState == GameState.Menu || gameState == GameState.Help || gameState == GameState.End){
-            menu.tick();
-        }
+                /**
+                 * DEATH MECHANISM
+                 */
+                if(HUD.HEALTH <= 0){
+                    HUD.HEALTH = 100.0f;
+                    
+                    handler.removeAllEnemies();
+                    handler.removePlayer();
+                    //AudioPlayer.getMusic("in_game_music").stop();
+                    AudioPlayer.getMusic("music").loop();
+                    gameState = GameState.End; 
 
+                }
+            } 
+        } else if(gameState == GameState.Menu || gameState == GameState.Help || gameState == GameState.End || gameState == GameState.Select){
+            menu.tick();
+            handler.tick();
+        }
     }
+    
+    
 
     private void render() {
         BufferStrategy bs = this.getBufferStrategy();
@@ -154,16 +165,15 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, (int)WIDTH, (int)HEIGHT);
         
         handler.render(g);
+        if(paused){
+            g.drawString("PAUSE", 200, 200);
+        }
         
         if(gameState == GameState.Game){
             hud.render(g);
-        }else if(gameState == GameState.Menu || gameState == GameState.Help || gameState == GameState.End ){
+        }else if(gameState == GameState.Menu || gameState == GameState.Help || gameState == GameState.End ||  gameState == GameState.Select){
             menu.render(g);
         }
-        
-        
-        
-        
         g.dispose();
         bs.show();
     }
