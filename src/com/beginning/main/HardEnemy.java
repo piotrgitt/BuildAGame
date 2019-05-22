@@ -3,13 +3,16 @@ package com.beginning.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class HardEnemy extends GameObject {
 
     private Handler handler;
     private Random random;
-
+    private BufferedImage hardEnemyImage;
+   
+    
     public HardEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
 
@@ -17,7 +20,11 @@ public class HardEnemy extends GameObject {
 
         velX = 7.0f;
         velY = 7.0f;
-
+        
+                
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        
+        hardEnemyImage = ss.grabImage(2, 1, 16, 16);
     }
 
     @Override
@@ -42,8 +49,7 @@ public class HardEnemy extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.yellow);  //set color of render object
-        g.fillRect((int)x, (int)y, 16, 16);  //fill renctangle - Dimenstion of him is 16x16px
+        g.drawImage(hardEnemyImage, (int)x, (int)y, null);   
     }
 
     @Override

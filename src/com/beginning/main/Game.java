@@ -7,6 +7,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
@@ -27,7 +29,7 @@ public class Game extends Canvas implements Runnable {
     public Menu menu;
     private HUD hud;
     public static boolean paused = false;
-    
+    public static BufferedImage sprite_sheet;
     
     //int averageFPS, sum, iterator = 0;
     
@@ -42,7 +44,15 @@ public class Game extends Canvas implements Runnable {
      * Constructor
      */
     public Game() {
-        
+        BufferedImageLoader loader = new BufferedImageLoader();
+        try{
+            sprite_sheet = loader.loadImage("spread_sheet.png");
+            System.out.println("Loaded sprited_sheet image");
+        }catch(Exception e){
+            e.printStackTrace();
+            System.err.println("- Cant load sprite-sheet image");
+        }
+
         handler = new Handler();
         hud = new HUD();
         spawner = new Spawn(handler, hud, this);

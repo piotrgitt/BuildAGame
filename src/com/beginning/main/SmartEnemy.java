@@ -6,12 +6,14 @@ package com.beginning.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import static java.lang.Double.NaN;
 
 public class SmartEnemy extends GameObject {
 
     private Handler handler;
     private GameObject player;
+    private BufferedImage smartEnemyImage;
     
     float distX;
     float distY;
@@ -25,10 +27,10 @@ public class SmartEnemy extends GameObject {
         for(int i=0; i<handler.objects.size();i++){
             if(handler.objects.get(i).id == ID.Player) player = handler.objects.get(i);
         }
+                
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
         
-
-
-
+        smartEnemyImage = ss.grabImage(1, 3, 16, 16);
     }
 
     @Override
@@ -90,8 +92,7 @@ public class SmartEnemy extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.green);  //set color of render object
-        g.fillRect((int)x, (int)y, 16, 16);  //fill renctangle - Dimenstion of him is 16x16px
+        g.drawImage(smartEnemyImage, (int)x, (int)y, null);
     }
 
     @Override

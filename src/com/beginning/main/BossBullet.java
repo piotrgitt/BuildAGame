@@ -3,12 +3,14 @@ package com.beginning.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class BossBullet extends GameObject {
 
     private Handler handler;
     private final Random randomNumber = new Random();
+    private BufferedImage bossBulletImage;
 
     public BossBullet(float x, float y, ID id, Handler handler) {
         super(x, y, id);
@@ -17,6 +19,11 @@ public class BossBullet extends GameObject {
 
         velX = (randomNumber.nextFloat())*10 -5;
         velY = 4.0f;
+        
+                        
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        
+        bossBulletImage = ss.grabImage(2, 2, 16, 16);
 
     }
 
@@ -39,13 +46,13 @@ public class BossBullet extends GameObject {
           if(x > Game.WIDTH) handler.removeObject(this);
           if(y > Game.HEIGHT) handler.removeObject(this);
 
-        handler.addObject(new Trail(x, y, Color.red, 16, 16, 0.025f, ID.Trail, handler));
+        //handler.addObject(new Trail(x, y, Color.red, 16, 16, 0.025f, ID.Trail, handler));
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.red);  //set color of render object
-        g.fillRect((int)x, (int)y, 16, 16);  //fill renctangle - Dimenstion of him is 16x16px
+        g.drawImage(bossBulletImage, (int)x, (int)y, null);   
     }
 
     @Override

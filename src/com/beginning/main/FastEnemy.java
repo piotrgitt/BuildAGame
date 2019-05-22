@@ -6,10 +6,12 @@ package com.beginning.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class FastEnemy extends GameObject {
 
     private Handler handler;
+    private BufferedImage fastEnemyImage;
 
     public FastEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
@@ -18,7 +20,9 @@ public class FastEnemy extends GameObject {
 
         velX = 2;
         velY = 8;
-
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        
+        fastEnemyImage = ss.grabImage(1, 4, 16, 16);
     }
 
     @Override
@@ -42,8 +46,7 @@ public class FastEnemy extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.ORANGE);  //set color of render object
-        g.fillRect((int)x, (int)y, 16, 16);  //fill renctangle - Dimenstion of him is 16x16px
+        g.drawImage(fastEnemyImage, (int)x, (int)y, null);
     }
 
     @Override

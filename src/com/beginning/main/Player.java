@@ -4,14 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class Player extends GameObject {
 
     public Handler handler;
+    private BufferedImage player_image;
 
     public Player(float x, float y, ID id, Handler handler) {
         super(x, y, id);
         this.handler = handler;
+        
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        
+        player_image = ss.grabImage(1, 1, 32, 32);
     }
 
     @Override
@@ -36,7 +42,7 @@ public class Player extends GameObject {
         //Player Render
         g.setColor(Color.blue);   //set color of render object
         g.fillRect((int)x, (int)y, 32, 32);  //fill renctangle - Dimension of him is 16x16px
-
+        g.drawImage(player_image, (int)x, (int)y, null);
         //Collision border of player
         //g.setColor(Color.red);
         //g2d.draw(getBounds());
