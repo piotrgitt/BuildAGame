@@ -1,5 +1,5 @@
 # simpleGame
-Simple game made with basic Java libraries <br />
+Simple game made with basic Java libraries and with help Slick2D and LWJGL for sound<br />
 You can download this game here -> http://uploadfile.pl/pokaz/1753219---qwfn.html <br />
 Just unpack it and open exe file. <br />
 # screenshots
