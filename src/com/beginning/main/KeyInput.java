@@ -40,20 +40,26 @@ public class KeyInput extends KeyAdapter {
              * key events for Player
              */
             if (tempObject.getId() == ID.Player ){
-                if(key == KeyEvent.VK_UP)    {tempObject.setVelY(-4); keyDown[0] = true;}
-                if(key == KeyEvent.VK_DOWN)  {tempObject.setVelY(4);  keyDown[1] = true;}
-                if(key == KeyEvent.VK_RIGHT) {tempObject.setVelX(4);  keyDown[2] = true;}
-                if(key == KeyEvent.VK_LEFT)  {tempObject.setVelX(-4); keyDown[3] = true;}
+                if(key == KeyEvent.VK_UP)    {tempObject.setVelY(-handler.playerSpeed); keyDown[0] = true; }
+                if(key == KeyEvent.VK_DOWN)  {tempObject.setVelY(handler.playerSpeed);  keyDown[1] = true; }
+                if(key == KeyEvent.VK_RIGHT) {tempObject.setVelX(handler.playerSpeed);  keyDown[2] = true; }
+                if(key == KeyEvent.VK_LEFT)  {tempObject.setVelX(-handler.playerSpeed); keyDown[3] = true; }
             }
-            
         }
-       // if(key == KeyEvent.VK_ESCAPE) System.exit(1);
+        //if(key == KeyEvent.VK_ESCAPE) System.exit(1);
         if (key == KeyEvent.VK_P) {
             if(game.gameState == GameState.Game){
                 if(!Game.paused) Game.paused = true;
                 else Game.paused = false;
             }
-        }   
+        }
+        
+        if (key == KeyEvent.VK_SPACE) {
+            if(game.gameState == GameState.Game){
+                game.gameState = GameState.Shop;
+            } else if(game.gameState == GameState.Shop) game.gameState = GameState.Game;
+        }
+        
         
     }
     

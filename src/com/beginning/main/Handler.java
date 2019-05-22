@@ -13,6 +13,7 @@ import java.util.LinkedList;
 public class Handler {
     LinkedList<GameObject> objects = new LinkedList<GameObject>();
     
+    public int playerSpeed = 4;
     /**
      * looping trough all game objects
      * 

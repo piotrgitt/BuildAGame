@@ -15,6 +15,7 @@ public class HUD {
     private float greenValue;
     private int score = 0;
     private int level = 1;
+    public int bounds = 0;
     
     
     /**
@@ -22,10 +23,9 @@ public class HUD {
      */
     public void tick() {
 
-        HEALTH = Game.clamp(HEALTH, 0.0f, 100.0f);    // 0 and 100  - maximum and minimum health value
-        greenValue = Game.clamp(greenValue, 0.0f, 255.0f);
-
+        HEALTH = Game.clamp(HEALTH, 0.0f, 100.0f+bounds);    // 0 and 100  - maximum and minimum health value
         greenValue = HEALTH * 2;
+        greenValue = Game.clamp(greenValue, 0.0f, 255.0f);
         score++;
     }
     
@@ -35,17 +35,18 @@ public class HUD {
      */
     public void render(Graphics g) {
         g.setColor(Color.gray);
-        g.fillRect(15, 15, 200, 32);
+        g.fillRect(15, 15, 200+bounds, 32);
 
         g.setColor(new Color(75, (int)greenValue, 0));
         g.fillRect(15, 15, (int)HEALTH * 2, 32);
 
         g.setColor(Color.white);
-        g.drawRect(15, 15, 200, 32);
+        g.drawRect(15, 15, 200+bounds, 32);
 
         //draw out score and level
         g.drawString("Score: " + score, 14, 68);
         g.drawString("Level: " + level, 14, 82);
+        g.drawString("Press SPACE to acces SHOP", 14, 96);
 
     }
 

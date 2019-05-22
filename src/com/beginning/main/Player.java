@@ -61,7 +61,7 @@ public class Player extends GameObject {
             if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.BossBullet || tempObject.getId() == ID.HardEnemy ) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     //collision code - what happens when intersect is going with object above(in big OR statement)
-                    HUD.HEALTH -= 1.0f;
+                    HUD.HEALTH -= 3.0f;
                 }
             }
         }

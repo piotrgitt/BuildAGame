@@ -14,5 +14,6 @@ public enum GameState {
         Help,   
         Game,
         Select,
+        Shop,
         End;
 };

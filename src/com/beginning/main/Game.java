@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable {
     private final Handler handler;
     private Spawn spawner;
     public Menu menu;
+    private Shop shop;
     private HUD hud;
     public static boolean paused = false;
     public static BufferedImage sprite_sheet;
@@ -52,14 +53,17 @@ public class Game extends Canvas implements Runnable {
             e.printStackTrace();
             System.err.println("- Cant load sprite-sheet image");
         }
-
+        
         handler = new Handler();
         hud = new HUD();
+        shop = new Shop(handler, hud, this);
+
         spawner = new Spawn(handler, hud, this);
         menu = new Menu(this, handler, hud, spawner);
         
         this.addKeyListener(new KeyInput(handler, this));    //it listen all the time our keyboard
         this.addMouseListener(menu);
+        this.addMouseListener(shop);
         
         AudioPlayer.load();
         AudioPlayer.getMusic("music").loop();
@@ -174,15 +178,18 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black);    //set background color to Black
         g.fillRect(0, 0, (int)WIDTH, (int)HEIGHT);
         
-        handler.render(g);
         if(paused){
             g.drawString("PAUSE", 200, 200);
         }
         
         if(gameState == GameState.Game){
             hud.render(g);
+            handler.render(g);
+        }else if(gameState == GameState.Shop){
+            shop.render(g);
         }else if(gameState == GameState.Menu || gameState == GameState.Help || gameState == GameState.End ||  gameState == GameState.Select){
             menu.render(g);
+            handler.render(g);
         }
         g.dispose();
         bs.show();
