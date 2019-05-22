@@ -11,11 +11,16 @@ public class BossBullet extends GameObject {
     private Handler handler;
     private final Random randomNumber = new Random();
     private BufferedImage bossBulletImage;
+    private Player player;
+    private boolean playerIsAboveBoss;
 
     public BossBullet(float x, float y, ID id, Handler handler) {
         super(x, y, id);
 
         this.handler = handler;
+        for(int i=0; i<handler.objects.size();i++){
+            if(handler.objects.get(i).id == ID.Player) this.player = (Player) handler.objects.get(i);
+        }
 
         velX = (randomNumber.nextFloat())*10 -5;
         velY = 4.0f;
@@ -31,7 +36,10 @@ public class BossBullet extends GameObject {
     public void tick() {
         x += velX;
         y += velY;
-
+        
+        if(player.getY() < 80){
+            velY=-4.0f;
+        } else velY = 4.0f;
         /**
          * if an Enemy hits our window wall, his velocity will reverse - he just
          * bounce off(multiplying by -1)

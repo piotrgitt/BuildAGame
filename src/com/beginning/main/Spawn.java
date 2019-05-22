@@ -8,6 +8,7 @@ public class Spawn {
     private Game game;
     public Handler handler;
     private HUD hud;
+    private Player player;
     private int scoreKeep = 0;
 
     public Spawn(Handler handler, HUD hud, Game game) {
@@ -53,7 +54,7 @@ public class Spawn {
                         break;
                     case 10:
                         handler.removeAllEnemies();
-                        handler.addObject(new BossEnemy(Game.WIDTH/2 - 40, -106 , ID.BossEnemy, handler,11));  
+                        handler.addObject(new BossEnemy(Game.WIDTH/2 - 40, -106 , ID.BossEnemy, handler,5));  
                         break;
                     default:
                         break;

@@ -208,7 +208,9 @@ public class Menu extends MouseAdapter{
             g.drawString("BACK", 100, 422);
             
             g.setFont(font2);
-            g.drawString("Use 'arrows' to move around and avoid enemies!", 100, 250);
+            g.drawString("- Use 'arrows' to move around and avoid enemies,", 100, 250);
+            g.drawString("- Press P for Pause,", 100, 270);
+            g.drawString("- Press SPACE to enter shop.", 100, 290);
         }
         
         if(game.gameState == GameState.End){
@@ -248,9 +250,9 @@ public class Menu extends MouseAdapter{
             g.setFont(font1);
             
             g.setColor(Color.WHITE);
-            g.drawString("Select difficulty", 200, 30);
+            g.drawString("Select difficulty", 210, 40);
             g.drawRoundRect(170, 80, 300, 90,10, 10);
-            g.drawString("NORMAL", 270, 140);
+            g.drawString("NORMAL", 255, 140);
 
             g.drawRoundRect(170, 200, 300, 90,10, 10);
             g.drawString("HARD", 270, 140+120);

@@ -4,6 +4,7 @@ package com.beginning.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class BossEnemy extends GameObject {
 
@@ -12,17 +13,22 @@ public class BossEnemy extends GameObject {
     private int timer2 = 80;
     private int spawn;
     private boolean readyToFire = false;
-    private int chanceToFireBullet; // highier number - less chance to
+    private int chanceToFireBullet; // highier number - less chance to shot an bullet
+    private BufferedImage bossImage;
+    
 
     public BossEnemy(float x, float y, ID id, Handler handler, int chanceToFireBullet) {
         super(x, y, id);
 
         this.handler = handler;
-
+        
         velX = 0.0f;
         velY = 0.85f;
         
         this.chanceToFireBullet = chanceToFireBullet;
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        
+        bossImage = ss.grabImage(1, 5, 96, 96);
 
     }
 
@@ -49,16 +55,15 @@ public class BossEnemy extends GameObject {
         } else timer --;
         
         if(timer2 == 0) {
-            velX = 2;
+            velX = 3;
             readyToFire = true;
         }
         
         //SPAWN BULLET SECTION --------------------
         if(readyToFire == true){
-            velX += 0.01f*Math.signum(velX);
             spawn = random.nextInt(chanceToFireBullet);
             if(spawn == 0){
-                handler.addObject(new BossBullet(x+40, y+40, ID.BossBullet, handler));
+                handler.addObject(new BossBullet(x+40, y+66, ID.BossBullet, handler));
            }
         }
         
@@ -69,6 +74,7 @@ public class BossEnemy extends GameObject {
     public void render(Graphics g) {
         g.setColor(Color.red);                        //set color of boss
         g.fillRect((int)x, (int)y, 96, 96);           //fill renctangle - Dimenstion of him is 16x16px
+        g.drawImage(bossImage, (int)x, (int)y, null);
     }   
 
     @Override

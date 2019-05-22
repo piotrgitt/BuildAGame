@@ -29,6 +29,7 @@ public class Game extends Canvas implements Runnable {
     public Menu menu;
     private Shop shop;
     private HUD hud;
+    private Player player;
     public static boolean paused = false;
     public static BufferedImage sprite_sheet;
     
@@ -47,7 +48,7 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         BufferedImageLoader loader = new BufferedImageLoader();
         try{
-            sprite_sheet = loader.loadImage("spread_sheet.png");
+            sprite_sheet = loader.loadImage("sprite_sheet2.png");
             System.out.println("Loaded sprited_sheet image");
         }catch(Exception e){
             e.printStackTrace();
@@ -57,7 +58,7 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler();
         hud = new HUD();
         shop = new Shop(handler, hud, this);
-
+        
         spawner = new Spawn(handler, hud, this);
         menu = new Menu(this, handler, hud, spawner);
         
