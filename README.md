@@ -1,5 +1,6 @@
 # SimpleGame
 Simple game made with basic Java libraries, with help Slick2D and LWJGL for sound<br />
+It was written with use a guide. Code is not 100% invented by me. Mostly writted it to learn git.
 ## Download
 You can download this game here -> https://ufile.io/5xhgdpbj <br />
 Just unpack it and open _.exe_ file to play. <br />
